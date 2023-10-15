@@ -5,8 +5,12 @@ import {
   deleteTask,
   restoreTask,
 } from "./taskManagerSlice";
-import "./TaskManager.css";
 import { useState } from "react";
+
+import classNames from 'classnames/bind';
+import styles from './TaskManager.module.scss';
+
+const cx = classNames.bind(styles);
 
 function TaskManager() {
   const [inputTask, setInputTask] = useState("");
@@ -33,18 +37,18 @@ function TaskManager() {
   };
 
   return (
-    <div className="wrap">
-      <div className="header">
-        <div className="button" onClick={() => setListButton(true)}>
+    <div className={cx("wrap")}>
+      <div className={cx("header")}>
+        <div className={cx("button")} onClick={() => setListButton(true)}>
           Danh sách công việc
         </div>
-        <div className="button" onClick={() => setListButton(false)}>
+        <div className={cx("button")} onClick={() => setListButton(false)}>
           Lịch sử đã xóa
         </div>
       </div>
       {listButton ? (
-        <div className="content">
-          <div className="input-task">
+        <div className={cx("content")}>
+          <div className={cx("input-task")}>
             <input
               value={inputTask}
               onChange={(e) => setInputTask(e.target.value)}
@@ -56,9 +60,9 @@ function TaskManager() {
           {tasks?.map((task) => {
             if (!task.deleted) {
               return (
-                <div key={task.id} className="item-wrap">
-                  <div className="item-content">{task.content}</div>
-                  <div className="item-tools">
+                <div key={task.id} className={cx("item-wrap")}>
+                  <div className={cx("item-content")}>{task.content}</div>
+                  <div className={cx("item-tools")}>
                     {task.complete ? (
                       <button onClick={() => handleChangeComplete(task)}>
                         Đã hoàn thành
@@ -77,15 +81,15 @@ function TaskManager() {
           })}
         </div>
       ) : (
-        <div className="content">
+        <div className={cx("content")}>
           <h2>Lịch sử đã xóa</h2>
 
           {tasks?.map((task) => {
             if (task.deleted) {
               return (
-                <div key={task.id} className="item-wrap">
-                  <div className="item-content">{task.content}</div>
-                  <div className="item-tools">
+                <div key={task.id} className={cx("item-wrap")}>
+                  <div className={cx("item-content")}>{task.content}</div>
+                  <div className={cx("item-tools")}>
                     {task.complete ? (
                       <button onClick={() => handleChangeComplete(task)}>
                         Đã hoàn thành
